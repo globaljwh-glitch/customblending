@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ContactController;
+
+Route::post('/api/contact', [ContactController::class, 'store']);
 
 Route::get('/', function () {
     return view('app');
