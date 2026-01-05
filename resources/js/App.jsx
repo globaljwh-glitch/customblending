@@ -1,15 +1,6 @@
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Services from './components/Services'
-import Footer from './components/Footer'
+import React from "react";
+import { createRoot } from "react-dom/client";
+import Home from "./pages/Home";
 
-export default function App() {
-  return (
-    <>
-      <Header />
-      <Hero />
-      <Services />
-      <Footer />
-    </>
-  )
-}
+const container = document.getElementById("app");
+createRoot(container).render(<Home />);
