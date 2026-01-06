@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <header>
       <h1>Custom Processing Services</h1>
       <nav>
-        <a href="#">Home</a>
-        <a href="#">Services</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <Link to="/">Home</Link>
+        <Link to="/contact">Contact</Link>
       </nav>
     </header>
   );
 }
+

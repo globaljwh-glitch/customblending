@@ -10,6 +10,11 @@ Route::get('/', function () {
     return view('app');
 });
 
+Route::get('/{any}', function () {
+    return view('app');
+})->where('any', '.*');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
