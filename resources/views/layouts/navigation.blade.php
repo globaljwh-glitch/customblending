@@ -20,6 +20,12 @@
                         :active="request()->routeIs('admin.blog.*')">
                         {{ __('Blogs') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('admin.resource.index')"
+                                :active="request()->routeIs('admin.resource.*')">
+                        {{ __('Resources') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

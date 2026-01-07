@@ -5,6 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
+use App\Http\Controllers\Admin\ResourceController;
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/resources', [ResourceController::class, 'index'])->name('resource.index');
+    Route::get('/resources/create', [ResourceController::class, 'create'])->name('resource.create');
+    Route::post('/resources', [ResourceController::class, 'store'])->name('resource.store');
+    Route::get('/resources/{id}/edit', [ResourceController::class, 'edit'])->name('resource.edit');
+    Route::put('/resources/{id}', [ResourceController::class, 'update'])->name('resource.update');
+    Route::delete('/resources/{id}', [ResourceController::class, 'destroy'])->name('resource.delete');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
