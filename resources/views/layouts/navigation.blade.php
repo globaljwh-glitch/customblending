@@ -26,6 +26,11 @@
                         {{ __('Resources') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('admin.teams.index')" :active="request()->routeIs('admin.teams.*')">
+                        Teams
+                    </x-nav-link>
+
+
                 </div>
             </div>
 

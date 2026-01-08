@@ -35,7 +35,7 @@
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea name="description"
+                        <textarea id="description-editor" name="description"
                                   rows="4"
                                   class="mt-1 block w-full border-gray-300 rounded"
                                   required></textarea>
@@ -65,7 +65,15 @@
                             Save
                         </button>
                     </div>
-
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            ClassicEditor
+                                .create(document.querySelector('#description-editor'))
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        });
+                    </script>
                 </form>
 
             </div>
