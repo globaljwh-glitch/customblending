@@ -30,6 +30,11 @@
                         Teams
                     </x-nav-link>
 
+                    <x-nav-link :href="route('admin.services.index')"
+                                :active="request()->routeIs('admin.services.*')">
+                        {{ __('Services') }}
+                    </x-nav-link>
+
 
                 </div>
             </div>

@@ -11,6 +11,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('teams', \App\Http\Controllers\Admin\TeamController::class);
 });
 
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+    Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
+});
+
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/resources', [ResourceController::class, 'index'])->name('resource.index');
     Route::get('/resources/create', [ResourceController::class, 'create'])->name('resource.create');
