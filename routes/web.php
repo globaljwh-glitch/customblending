@@ -7,6 +7,25 @@ use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\ResourceController;
 
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])
+            ->name('contacts.index');
+
+        Route::get('contacts/{contact}', [\App\Http\Controllers\Admin\ContactController::class, 'show'])
+            ->name('contacts.show');
+    });
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('industries', \App\Http\Controllers\Admin\IndustryController::class);
+    });
+
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('teams', \App\Http\Controllers\Admin\TeamController::class);
 });

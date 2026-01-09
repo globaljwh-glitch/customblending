@@ -35,6 +35,16 @@
                         {{ __('Services') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('admin.industries.index')"
+                                :active="request()->routeIs('admin.industeries.*')">
+                        {{ __('Industry') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.contacts.index')"
+                                :active="request()->routeIs('admin.contacts.*')">
+                        {{ __('Contacts') }}
+                    </x-nav-link>
+
 
                 </div>
             </div>
