@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/contact',
             'api/blogs',
             'api/blogs/*',
+            'api/get-it-now',
+            'api/consultation-request',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

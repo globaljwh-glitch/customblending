@@ -6,6 +6,40 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\ResourceController;
+use App\Http\Controllers\Api\GetItNowController;
+use App\Http\Controllers\Admin\GetItNowController as AdminGetItNowController;
+use App\Http\Controllers\Api\ConsultationRequestController;
+use App\Http\Controllers\Admin\ConsultationRequestController as AdminConsultationRequestController;
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('consultation-requests',
+            [AdminConsultationRequestController::class, 'index']
+        )->name('consultation-requests.index');
+
+        Route::get('consultation-requests/{consultationRequest}',
+            [AdminConsultationRequestController::class, 'show']
+        )->name('consultation-requests.show');
+    });
+
+Route::post('/api/consultation-request', [ConsultationRequestController::class, 'store']);
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('get-it-now', [AdminGetItNowController::class, 'index'])
+            ->name('get-it-now.index');
+
+        Route::get('get-it-now/{getItNow}', [AdminGetItNowController::class, 'show'])
+            ->name('get-it-now.show');
+    });
+
+Route::post('/api/get-it-now', [GetItNowController::class, 'store']);
 
 Route::middleware(['auth'])
     ->prefix('admin')

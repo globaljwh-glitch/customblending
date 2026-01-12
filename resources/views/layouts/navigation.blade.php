@@ -45,6 +45,15 @@
                         {{ __('Contacts') }}
                     </x-nav-link>
 
+                    <!-- <x-nav-link :href="route('admin.get-it-now.index')"
+                                :active="request()->routeIs('admin.get-it-now.*')">
+                        {{ __('Get It Now') }}
+                    </x-nav-link> -->
+
+                    <!-- <x-nav-link :href="route('admin.consultation-requests.index')"
+                                :active="request()->routeIs('admin.consultation-requests.*')">
+                        {{ __('Consultation Requests') }}
+                    </x-nav-link> -->
 
                 </div>
             </div>
