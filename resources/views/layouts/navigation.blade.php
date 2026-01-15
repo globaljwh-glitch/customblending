@@ -36,24 +36,58 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('admin.industries.index')"
-                                :active="request()->routeIs('admin.industeries.*')">
+                                :active="request()->routeIs('admin.industries.*')">
                         {{ __('Industry') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.contacts.index')"
-                                :active="request()->routeIs('admin.contacts.*')">
-                        {{ __('Contacts') }}
-                    </x-nav-link>
+                    <div class="relative group h-full">
 
-                    <!-- <x-nav-link :href="route('admin.get-it-now.index')"
-                                :active="request()->routeIs('admin.get-it-now.*')">
-                        {{ __('Get It Now') }}
-                    </x-nav-link> -->
+                        {{-- Trigger (matches x-nav-link height exactly) --}}
+                        <div
+                            class="inline-flex items-center h-full px-3 border-b-2
+                                border-transparent text-sm font-medium text-gray-600
+                                hover:text-gray-800 hover:border-gray-300
+                                transition
+                                {{ request()->routeIs('admin.contacts.*')
+                                    || request()->routeIs('admin.get-it-now.*')
+                                    || request()->routeIs('admin.consultation-requests.*')
+                                    ? 'border-indigo-500 text-gray-900'
+                                    : '' }}">
 
-                    <!-- <x-nav-link :href="route('admin.consultation-requests.index')"
-                                :active="request()->routeIs('admin.consultation-requests.*')">
-                        {{ __('Consultation Requests') }}
-                    </x-nav-link> -->
+                            Leads
+                            <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+
+                        {{-- Dropdown --}}
+                        <div
+                            class="absolute left-0 top-full mt-2 w-56 bg-white
+                                border border-gray-200 rounded-md shadow-lg
+                                opacity-0 invisible group-hover:opacity-100
+                                group-hover:visible transition-all duration-200 z-50">
+
+                            <a href="{{ route('admin.contacts.index') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+                                    {{ request()->routeIs('admin.contacts.*') ? 'bg-gray-100 font-semibold' : '' }}">
+                                Contacts
+                            </a>
+
+                            <a href="{{ route('admin.get-it-now.index') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+                                    {{ request()->routeIs('admin.get-it-now.*') ? 'bg-gray-100 font-semibold' : '' }}">
+                                Get It Now
+                            </a>
+
+                            <a href="{{ route('admin.consultation-requests.index') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+                                    {{ request()->routeIs('admin.consultation-requests.*') ? 'bg-gray-100 font-semibold' : '' }}">
+                                Consultation Requests
+                            </a>
+                        </div>
+                    </div>
 
                 </div>
             </div>
