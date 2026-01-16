@@ -10,6 +10,23 @@ use App\Http\Controllers\Api\GetItNowController;
 use App\Http\Controllers\Admin\GetItNowController as AdminGetItNowController;
 use App\Http\Controllers\Api\ConsultationRequestController;
 use App\Http\Controllers\Admin\ConsultationRequestController as AdminConsultationRequestController;
+use App\Http\Controllers\Api\AnalyticalLabServiceController;
+use App\Http\Controllers\Admin\AnalyticalLabServiceController as AdminAnalyticalLabServiceController;
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('analytical-lab-services',
+            [AdminAnalyticalLabServiceController::class, 'index']
+        )->name('analytical-lab-services.index');
+
+        Route::get('analytical-lab-services/{analyticalLabService}',
+            [AdminAnalyticalLabServiceController::class, 'show']
+        )->name('analytical-lab-services.show');
+    });
+
+Route::post('/api/analytical-lab-service', [AnalyticalLabServiceController::class, 'store']);
 
 Route::middleware(['auth'])
     ->prefix('admin')

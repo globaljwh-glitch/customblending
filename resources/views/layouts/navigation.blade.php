@@ -86,6 +86,12 @@
                                     {{ request()->routeIs('admin.consultation-requests.*') ? 'bg-gray-100 font-semibold' : '' }}">
                                 Consultation Requests
                             </a>
+
+                            <a href="{{ route('admin.analytical-lab-services.index') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
+                                    {{ request()->routeIs('admin.analytical-lab-services.*') ? 'bg-gray-100 font-semibold' : '' }}">
+                                Analytical Lab Services
+                            </a>
                         </div>
                     </div>
 

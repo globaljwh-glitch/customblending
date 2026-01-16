@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/blogs/*',
             'api/get-it-now',
             'api/consultation-request',
+            'api/analytical-lab-service',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
