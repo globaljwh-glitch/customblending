@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminFormNotification;
+use App\Mail\UserFormConfirmation;
 
 class ContactController extends Controller
 {
@@ -23,6 +26,18 @@ class ContactController extends Controller
 
         Contact::create($validated);
 
+        // Mail::to(config('mail.admin_email'))
+        //     ->send(new AdminFormNotification(
+        //         'New Contact Submission',
+        //         $contact->toArray()
+        //     ));
+
+        // Mail::to($contact->business_email)
+        //     ->send(new UserFormConfirmation(
+        //         $contact->first_name,
+        //         'Thank you for contacting us. We have received your message.'
+        //     ));
+            
         return response()->json([
             'status' => true,
             'message' => 'Contact submitted successfully'

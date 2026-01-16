@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\ConsultationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminFormNotification;
+use App\Mail\UserFormConfirmation;
 
 class ConsultationRequestController extends Controller
 {
@@ -28,6 +31,19 @@ class ConsultationRequestController extends Controller
         ]);
 
         $consultation = ConsultationRequest::create($data);
+
+        // Mail::to(config('mail.admin_email'))
+        //     ->send(new AdminFormNotification(
+        //         'New Consultation Request',
+        //         $consultation->toArray()
+        //     ));
+
+        // Mail::to($consultation->business_email)
+        //     ->send(new UserFormConfirmation(
+        //         $consultation->first_name,
+        //         'Thank you for requesting a consultation. Our team will reach out soon.'
+        //     ));
+
 
         return response()->json([
             'success' => true,

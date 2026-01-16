@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\GetItNow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminFormNotification;
+use App\Mail\UserFormConfirmation;
 
 class GetItNowController extends Controller
 {
@@ -27,6 +30,19 @@ class GetItNowController extends Controller
         ]);
 
         $getItNow = GetItNow::create($data);
+
+        // Mail::to(config('mail.admin_email'))
+        //     ->send(new AdminFormNotification(
+        //         'New Get It Now Submission',
+        //         $getItNow->toArray()
+        //     ));
+
+        // Mail::to($getItNow->email)
+        //     ->send(new UserFormConfirmation(
+        //         $getItNow->first_name,
+        //         'Thank you for your interest. We have received your request.'
+        //     ));
+
 
         return response()->json([
             'success' => true,
