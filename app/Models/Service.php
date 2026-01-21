@@ -14,13 +14,43 @@ class Service extends Model
         'description',
         'image',
         'highlight_block',
-        'extra_data',
         'status',
+        'industry_section_title',
+        'industry_section_description',
     ];
 
-    protected $casts = [
-        'extra_data' => 'array',
-        'status' => 'boolean',
-    ];
+    // protected $casts = [
+    //     'extra_data' => 'array',
+    //     'status' => 'boolean',
+    // ];
+
+    /* =========================
+       Relationships (children)
+       ========================= */
+
+    public function features()
+    {
+        return $this->hasMany(ServiceFeature::class)
+                    ->orderBy('display_order');
+    }
+
+    public function accordions()
+    {
+        return $this->hasMany(ServiceAccordion::class)
+                    ->orderBy('display_order');
+    }
+
+    public function industries()
+    {
+        return $this->hasMany(ServiceIndustry::class)
+                    ->orderBy('display_order');
+    }
+
+    public function mediaSections()
+    {
+        return $this->hasMany(ServiceMediaSection::class)
+                    ->orderBy('display_order');
+    }
 }
+
 

@@ -1,133 +1,84 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit Service
+        <h2 class="font-semibold text-xl">
+            {{ isset($service) ? 'Edit Service' : 'Add Service' }}
         </h2>
     </x-slot>
 
-    @php
-        $extraData = $service->extra_data ?? [];
-    @endphp
+    <div class="py-6 max-w-5xl mx-auto">
+        <div class="bg-white shadow rounded p-6">
+@if ($errors->any())
+    <div class="mb-4 bg-red-50 border border-red-300 text-red-700 p-3 rounded">
+        <ul class="list-disc pl-5">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+            <form method="POST"
+                  action="{{ isset($service)
+                        ? route('admin.services.update', $service)
+                        : route('admin.services.store') }}"
+                  enctype="multipart/form-data">
 
+                @csrf
+                @isset($service) @method('PUT') @endisset
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow rounded p-6">
+                <input name="name"
+                       value="{{ old('name', $service->name ?? '') }}"
+                       placeholder="Service Name"
+                       class="w-full mb-3 border rounded p-2">
 
-                <form method="POST"
-                      action="{{ route('admin.services.update', $service) }}"
-                      enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium">Short Service Name</label>
-                        <input name="name" value="{{ $service->name }}"
-                               class="mt-1 w-full border-gray-300 rounded"
-                               placeholder="Service Name" required>
-                    </div>
+                <input name="title1"
+                       value="{{ old('title1', $service->title1 ?? '') }}"
+                       placeholder="Title 1"
+                       class="w-full mb-3 border rounded p-2">
 
-                    <div class="grid grid-cols-3 gap-4 mb-4">
-                        <input name="title1" value="{{ $service->title1 }}" placeholder="Sub Title 1" class="border-gray-300 rounded">
-                        <input required name="title2" value="{{ $service->title2 }}" placeholder="Full Service Name" class="border-gray-300 rounded">
-                        <input required name="title3" value="{{ $service->title3 }}" placeholder="Sub Title 2" class="border-gray-300 rounded">
-                    </div>
+                <textarea name="description"
+                          class="w-full mb-3 border rounded p-2"
+                          placeholder="Description">{{ old('description', $service->description ?? '') }}</textarea>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium">Description</label>
-                        <textarea required name="description" id="description-editor"
-                              class="w-full border-gray-300 rounded mb-4"
-                              rows="4">{{ $service->description }}</textarea>
-                    </div>
+                <input type="file" name="image" class="mb-3">
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium">Highlight Block</label>
-                        <textarea name="highlight_block" id="highlight-editor"
-                              class="w-full border-gray-300 rounded mb-4"
-                              rows="3">{{ $service->highlight_block }}</textarea>
-                    </div>
+                <hr class="my-4">
 
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium">Image</label>
-                        <input type="file" name="image" class="mb-4">
-                        @if ($service->image)
-                            <img src="{{ asset('storage/' . $service->image) }}"
-                                alt="Service Image"
-                                class="h-32 rounded border">
-                        @endif
-                    </div>
+                <h3 class="font-semibold mb-2">Industry Section</h3>
 
-                    <label class="inline-flex items-center mb-6">Status &nbsp;&nbsp;
-                        <input type="checkbox" name="status" value="1"
-                               {{ $service->status ? 'checked' : '' }}
-                               class="rounded border-gray-300 text-indigo-600">
-                        <span class="ml-2">Active</span>
-                    </label>
+                <input name="industry_section_title"
+                       value="{{ old('industry_section_title', $service->industry_section_title ?? '') }}"
+                       placeholder="Industry Section Title"
+                       class="w-full mb-3 border rounded p-2">
 
-                    <!-- <div id="black-box-wrapper"></div>
-                    <div id="plus-minus-wrapper"></div>
-                    <div id="industry-wrapper"></div> -->
-                    <h3 class="text-lg font-bold mt-6 mb-2">Black Box Section</h3>
-                    <div id="black-box-wrapper"></div>
-                    <button type="button"
-                            onclick="addBlackBox()"
-                            class="mt-2 px-3 py-1 bg-indigo-600 text-white rounded">
-                        + Add Black Box
-                    </button>
+                <textarea name="industry_section_description"
+                          class="w-full mb-3 border rounded p-2"
+                          placeholder="Industry Section Description">{{ old('industry_section_description', $service->industry_section_description ?? '') }}</textarea>
 
-                    <h3 class="text-lg font-bold mt-6 mb-2">Plus / Minus Section</h3>
-                    <div id="plus-minus-wrapper"></div>
-                    <button type="button" onclick="addPlusMinus()" class="mt-2 px-3 py-1 bg-indigo-600 text-white rounded">
-                                            + Add Plus/Minus
-                    </button>
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" name="status"
+                    value="1" {{ old('status', $service->status) ? 'checked' : '' }}>
 
-                    <h3 class="text-lg font-bold mt-6 mb-2">Industry Section</h3>
-                    <div id="industry-wrapper"></div>
-                    <button type="button"
-                            onclick="addIndustryItem()"
-                            class="mt-2 px-3 py-1 bg-indigo-600 text-white rounded">
-                        + Add Industry Item
-                    </button>
+                    Active
+                </label>
 
+                <button class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded">
+                    Save
+                </button>
+            </form>
 
+            @isset($service)
+                <hr class="my-6">
 
-                    {{-- Existing JSON data can be looped here similarly --}}
-                    <div class="text-right">
-                        <button class="px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                            Update Service
-                        </button>
-                    </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            ClassicEditor
-                                .create(document.querySelector('#description-editor'))
-                                .catch(error => {
-                                    console.error(error);
-                                });
-                        });
-                    </script>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            ClassicEditor
-                                .create(document.querySelector('#highlight-editor'))
-                                .catch(error => {
-                                    console.error(error);
-                                });
-                        });
-                    </script>
-                </form>
+                <h3 class="font-semibold mb-3">Manage Sections</h3>
 
-                <script>
-                    const existingData = @json($extraData);
-                </script>
+                <div class="flex gap-3">
+                    <a href="{{ route('admin.services.features.index', $service) }}">Features</a>
+                    <a href="{{ route('admin.services.accordions.index', $service) }}">Accordions</a>
+                    <a href="{{ route('admin.services.industries.index', $service) }}">Industries</a>
+                    <a href="{{ route('admin.services.media.index', $service) }}">Media Sections</a>
+                </div>
+            @endisset
 
-            </div>
         </div>
     </div>
 </x-app-layout>
-
-<script>
-    console.log('EXTRA DATA FROM PHP:', @json($service->extra_data));
-</script>
-
-@include('admin.services.partials.scripts')

@@ -12,6 +12,164 @@ use App\Http\Controllers\Api\ConsultationRequestController;
 use App\Http\Controllers\Admin\ConsultationRequestController as AdminConsultationRequestController;
 use App\Http\Controllers\Api\AnalyticalLabServiceController;
 use App\Http\Controllers\Admin\AnalyticalLabServiceController as AdminAnalyticalLabServiceController;
+use App\Http\Controllers\Admin\ServiceFeatureController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\ServiceAccordionController;
+use App\Http\Controllers\Admin\ServiceIndustryController;
+use App\Http\Controllers\Admin\ServiceMediaSectionController;
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::prefix('services/{service}')
+            ->name('services.')
+            ->group(function () {
+
+                Route::get('media', [ServiceMediaSectionController::class, 'index'])
+                    ->name('media.index');
+
+                Route::get('media/create', [ServiceMediaSectionController::class, 'create'])
+                    ->name('media.create');
+
+                Route::post('media', [ServiceMediaSectionController::class, 'store'])
+                    ->name('media.store');
+
+                Route::get('media/{media}/edit', [ServiceMediaSectionController::class, 'edit'])
+                    ->name('media.edit');
+
+                Route::put('media/{media}', [ServiceMediaSectionController::class, 'update'])
+                    ->name('media.update');
+
+                Route::delete('media/{media}', [ServiceMediaSectionController::class, 'destroy'])
+                    ->name('media.destroy');
+            });
+    });
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::prefix('services/{service}')
+            ->name('services.')
+            ->group(function () {
+
+                Route::get('industries', [ServiceIndustryController::class, 'index'])
+                    ->name('industries.index');
+
+                Route::get('industries/create', [ServiceIndustryController::class, 'create'])
+                    ->name('industries.create');
+
+                Route::post('industries', [ServiceIndustryController::class, 'store'])
+                    ->name('industries.store');
+
+                Route::get('industries/{industry}/edit', [ServiceIndustryController::class, 'edit'])
+                    ->name('industries.edit');
+
+                Route::put('industries/{industry}', [ServiceIndustryController::class, 'update'])
+                    ->name('industries.update');
+
+                Route::delete('industries/{industry}', [ServiceIndustryController::class, 'destroy'])
+                    ->name('industries.destroy');
+            });
+    });
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::prefix('services/{service}')
+            ->name('services.')
+            ->group(function () {
+
+                Route::get('accordions', [ServiceAccordionController::class, 'index'])
+                    ->name('accordions.index');
+
+                Route::get('accordions/create', [ServiceAccordionController::class, 'create'])
+                    ->name('accordions.create');
+
+                Route::post('accordions', [ServiceAccordionController::class, 'store'])
+                    ->name('accordions.store');
+
+                Route::get('accordions/{accordion}/edit', [ServiceAccordionController::class, 'edit'])
+                    ->name('accordions.edit');
+
+                Route::put('accordions/{accordion}', [ServiceAccordionController::class, 'update'])
+                    ->name('accordions.update');
+
+                Route::delete('accordions/{accordion}', [ServiceAccordionController::class, 'destroy'])
+                    ->name('accordions.destroy');
+            });
+    });
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::prefix('services/{service}')
+            ->name('services.')
+            ->group(function () {
+
+                Route::get('features', [ServiceFeatureController::class, 'index'])
+                    ->name('features.index');
+
+                Route::get('features/create', [ServiceFeatureController::class, 'create'])
+                    ->name('features.create');
+
+                Route::post('features', [ServiceFeatureController::class, 'store'])
+                    ->name('features.store');
+
+                Route::get('features/{feature}/edit', [ServiceFeatureController::class, 'edit'])
+                    ->name('features.edit');
+
+                Route::put('features/{feature}', [ServiceFeatureController::class, 'update'])
+                    ->name('features.update');
+
+                Route::delete('features/{feature}', [ServiceFeatureController::class, 'destroy'])
+                    ->name('features.destroy');
+            });
+    });
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::resource('services', ServiceController::class);
+    });
+
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::prefix('services/{service}')
+            ->name('services.')
+            ->group(function () {
+
+                Route::get('features', [ServiceFeatureController::class, 'index'])
+                    ->name('features.index');
+
+                Route::get('features/create', [ServiceFeatureController::class, 'create'])
+                    ->name('features.create');
+
+                Route::post('features', [ServiceFeatureController::class, 'store'])
+                    ->name('features.store');
+
+                Route::get('features/{feature}/edit', [ServiceFeatureController::class, 'edit'])
+                    ->name('features.edit');
+
+                Route::put('features/{feature}', [ServiceFeatureController::class, 'update'])
+                    ->name('features.update');
+
+                Route::delete('features/{feature}', [ServiceFeatureController::class, 'destroy'])
+                    ->name('features.destroy');
+            });
+    });
 
 Route::middleware(['auth'])
     ->prefix('admin')
@@ -81,9 +239,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('teams', \App\Http\Controllers\Admin\TeamController::class);
 });
 
-Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
-    Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
-});
+// Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+//     Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
+// });
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/resources', [ResourceController::class, 'index'])->name('resource.index');
